@@ -1,0 +1,42 @@
+#
+# define display information
+#
+name: Pick OTUs From Closed Reference with QIIME
+tooltip: |
+    Example wrapper for pick_closed_reference_otus.py
+screenshots: []
+
+icon: icon.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    post_split_library :
+        ui-name : |
+            Post Split Library
+        short-hint : |
+            The post-split FASTA file
+    output_otu_table :
+        ui-name : |
+            Output OTU Table
+        short-hint : |
+            Name for the output OTU Table (BIOM format)
+
+description : |
+    <p>First example of wrapping a QIIME method.</p>
