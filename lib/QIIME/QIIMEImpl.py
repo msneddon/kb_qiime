@@ -147,19 +147,19 @@ class QIIME:
 
         # If a parameters file is specified, write it out and save in provenance
         if 'parameters_config' in params:
-            # the user specified a parameters file
-            try:
-                objects = ws.get_objects([{'ref': params['workspace']+'/'+params['parameters_config']}])
-            except Exception as e:
-                raise ValueError('Unable to fetch parameters configuration from workspace: ' + str(e))
+            if params['parameters_config']:
+                try:
+                    objects = ws.get_objects([{'ref': params['workspace']+'/'+params['parameters_config']}])
+                except Exception as e:
+                    raise ValueError('Unable to fetch parameters configuration from workspace: ' + str(e))
 
-            p_file = open(params_file_path, 'w')
-            p_lines = objects[0]['data']['lines']
-            for l in p_lines:
-                p_file.write(l+'\n')
-            p_file.close()
+                p_file = open(params_file_path, 'w')
+                p_lines = objects[0]['data']['lines']
+                for l in p_lines:
+                    p_file.write(l+'\n')
+                p_file.close()
 
-            provenance[0]['input_ws_objects'].append(params['workspace']+'/'+params['parameters_config'])
+                provenance[0]['input_ws_objects'].append(params['workspace']+'/'+params['parameters_config'])
 
 
         # Write any additional parameters to the end of the configuration file
@@ -373,7 +373,7 @@ class QIIME:
         # create the report
         report = 'Saved QIIME Parameters Configuration\n'
         report += '====================================\n'
-        report += content
+        report += params['content']
 
         reportObj = {
             'objects_created':[{'ref':params_info[7]+'/'+params_info[1], 'description':'The new QIIME Parameters configuration.'}],

@@ -6,7 +6,7 @@ tooltip: |
     Save a new parameters configuration for use with QIIME tools
 screenshots: []
 
-icon: icon.png
+icon: qiime-logo-sm.png
 
 #
 # define a set of similar methods that might be useful to the user

@@ -6,7 +6,7 @@ tooltip: |
     Example wrapper for pick_closed_reference_otus.py
 screenshots: []
 
-icon: icon.png
+icon: qiime-logo-sm.png
 
 #
 # define a set of similar methods that might be useful to the user

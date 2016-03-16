@@ -18,7 +18,7 @@
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
-                "valid_ws_types": [ "QIIME.PostSplitLibrary" ],
+                "valid_ws_types": [ "QIIME.QIIMEParameters" ],
                 "is_output_name":true
             }
         },
