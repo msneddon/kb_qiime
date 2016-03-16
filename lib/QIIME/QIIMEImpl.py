@@ -382,7 +382,7 @@ class QIIME:
 
         reportName = 'QIIME.create_parameters_configuration_report_'+str(hex(uuid.getnode()))
         report_obj_info = ws.save_objects({
-                'id':info[6],
+                'id':params_info[6],
                 'objects':[
                     {
                         'type':'KBaseReport.Report',
