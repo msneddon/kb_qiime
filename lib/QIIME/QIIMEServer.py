@@ -64,6 +64,9 @@ async_check_methods = {}
 async_run_methods['QIIME.pick_closed_reference_otus_async'] = ['QIIME', 'pick_closed_reference_otus']
 async_check_methods['QIIME.pick_closed_reference_otus_check'] = ['QIIME', 'pick_closed_reference_otus']
 sync_methods['QIIME.pick_closed_reference_otus'] = True
+async_run_methods['QIIME.create_parameters_configuration_async'] = ['QIIME', 'create_parameters_configuration']
+async_check_methods['QIIME.create_parameters_configuration_check'] = ['QIIME', 'create_parameters_configuration']
+sync_methods['QIIME.create_parameters_configuration'] = True
 
 class AsyncJobServiceClient(object):
 
@@ -339,6 +342,10 @@ class Application(object):
                              name='QIIME.pick_closed_reference_otus',
                              types=[dict])
         self.method_authentication['QIIME.pick_closed_reference_otus'] = 'required'
+        self.rpc_service.add(impl_QIIME.create_parameters_configuration,
+                             name='QIIME.create_parameters_configuration',
+                             types=[dict])
+        self.method_authentication['QIIME.create_parameters_configuration'] = 'required'
         self.auth_client = biokbase.nexus.Client(
             config={'server': 'nexus.api.globusonline.org',
                     'verify_ssl': True,

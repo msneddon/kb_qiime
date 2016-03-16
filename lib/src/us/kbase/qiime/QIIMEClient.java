@@ -153,4 +153,21 @@ public class QIIMEClient {
         List<PickClosedRefOTUsResults> res = caller.jsonrpcCall("QIIME.pick_closed_reference_otus", args, retType, true, true, jsonRpcContext);
         return res.get(0);
     }
+
+    /**
+     * <p>Original spec-file function name: create_parameters_configuration</p>
+     * <pre>
+     * </pre>
+     * @param   params   instance of type {@link us.kbase.qiime.CreateParametersConfigurationParams CreateParametersConfigurationParams}
+     * @return   instance of type {@link us.kbase.qiime.CreateParametersConfigurationResults CreateParametersConfigurationResults}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public CreateParametersConfigurationResults createParametersConfiguration(CreateParametersConfigurationParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(params);
+        TypeReference<List<CreateParametersConfigurationResults>> retType = new TypeReference<List<CreateParametersConfigurationResults>>() {};
+        List<CreateParametersConfigurationResults> res = caller.jsonrpcCall("QIIME.create_parameters_configuration", args, retType, true, true, jsonRpcContext);
+        return res.get(0);
+    }
 }

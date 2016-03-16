@@ -7,7 +7,7 @@
     "categories": ["active"],
     "widgets": {
         "input": null,
-        "output": null
+        "output": "no-display"
     },
     "parameters": [ 
         {
@@ -32,6 +32,29 @@
                 "valid_ws_types": [ "QIIME.OTUTable" ],
                 "is_output_name":true
             }
+        },
+        {
+            "id": "rev_strand_match",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": [ 1 ],
+            "field_type": "checkbox",
+            "text_options": {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "parameters_config",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [ "QIIME.QIIMEParameters" ]
+            }
         }
     ],
     "behavior": {
@@ -51,6 +74,14 @@
                 {
                     "input_parameter": "output_otu_table",
                     "target_property": "otu_table_name"
+                },
+                {
+                    "input_parameter": "parameters_config",
+                    "target_property": "parameters_config"
+                },
+                {
+                    "input_parameter": "rev_strand_match",
+                    "target_property": "rev_strand_match"
                 }
             ],
             "output_mapping": [

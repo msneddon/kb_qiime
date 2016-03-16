@@ -1,0 +1,44 @@
+#
+# define display information
+#
+name: Create QIIME Parameters Configuration
+tooltip: |
+    Save a new parameters configuration for use with QIIME tools
+screenshots: []
+
+icon: icon.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    name :
+        ui-name : |
+            Name
+        short-hint : |
+            Name the QIIME parameters configuration
+    content :
+        ui-name : |
+            Parameters
+        short-hint : |
+            The content of the Parameters file
+
+description : |
+    <p>Creates a parameters configuration that can be used with QIIME tools.</p>
+
+    <p>See: <a href="http://qiime.org/documentation/qiime_parameters_files.html" target="_blank">http://qiime.org/documentation/qiime_parameters_files.html</a></p>

@@ -177,4 +177,11 @@ class QIIME(object):
         resp = self._call('QIIME.pick_closed_reference_otus',
                           [params], json_rpc_context)
         return resp[0]
+  
+    def create_parameters_configuration(self, params, json_rpc_context = None):
+        if json_rpc_context and type(json_rpc_context) is not dict:
+            raise ValueError('Method create_parameters_configuration: argument json_rpc_context is not type dict as required.')
+        resp = self._call('QIIME.create_parameters_configuration',
+                          [params], json_rpc_context)
+        return resp[0]
  

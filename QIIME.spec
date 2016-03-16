@@ -58,20 +58,22 @@ module QIIME {
     */
     typedef structure {
         list<string> lines;
-    } QIIMEParametersFile;
+    } QIIMEParameters;
 
 
-    /* OTU Table, generally a wrapper of a BIOM file */
+    /* OTU Table, generally a wrapper of a BIOM file 
+
+        TODO: add:
+            int n_samples;
+            int n_observations;
+            int count;
+            float density;
+
+            mapping<string,float> sample_detail;
+        @metadata ws summary as Summary
+    */
     typedef structure {
         BIOMHandle biom;
-
-        int n_samples;
-        int n_observations;
-        int count;
-        float density;
-
-        mapping<string,float> sample_detail;
-
         string summary;
     } OTUTable;
 
@@ -80,7 +82,8 @@ module QIIME {
         string workspace;
         string post_split_lib;
         string otu_table_name;
-        string parameters_file;
+        string parameters_config;
+        int rev_strand_match;
     } PickClosedRefOTUsParams;
 
     typedef structure {
@@ -91,5 +94,23 @@ module QIIME {
 
     funcdef pick_closed_reference_otus(PickClosedRefOTUsParams params)
                 returns(PickClosedRefOTUsResults) authentication required;
+
+
+    typedef structure {
+        string workspace;
+        string name;
+        string content;
+    } CreateParametersConfigurationParams;
+
+    typedef structure {
+        string report_name;
+        string report_ref;
+        string parameters_configuration_ref;
+    } CreateParametersConfigurationResults;
+
+    funcdef create_parameters_configuration(CreateParametersConfigurationParams params)
+                returns(CreateParametersConfigurationResults) authentication required;
+
+
 
 };

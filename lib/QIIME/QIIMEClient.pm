@@ -126,7 +126,8 @@ PickClosedRefOTUsParams is a reference to a hash where the following keys are de
 	workspace has a value which is a string
 	post_split_lib has a value which is a string
 	otu_table_name has a value which is a string
-	parameters_file has a value which is a string
+	parameters_config has a value which is a string
+	rev_strand_match has a value which is an int
 PickClosedRefOTUsResults is a reference to a hash where the following keys are defined:
 	otu_table_ref has a value which is a string
 	report_name has a value which is a string
@@ -144,7 +145,8 @@ PickClosedRefOTUsParams is a reference to a hash where the following keys are de
 	workspace has a value which is a string
 	post_split_lib has a value which is a string
 	otu_table_name has a value which is a string
-	parameters_file has a value which is a string
+	parameters_config has a value which is a string
+	rev_strand_match has a value which is an int
 PickClosedRefOTUsResults is a reference to a hash where the following keys are defined:
 	otu_table_ref has a value which is a string
 	report_name has a value which is a string
@@ -206,6 +208,103 @@ PickClosedRefOTUsResults is a reference to a hash where the following keys are d
     }
 }
  
+
+
+=head2 create_parameters_configuration
+
+  $return = $obj->create_parameters_configuration($params)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$params is a QIIME.CreateParametersConfigurationParams
+$return is a QIIME.CreateParametersConfigurationResults
+CreateParametersConfigurationParams is a reference to a hash where the following keys are defined:
+	workspace has a value which is a string
+	name has a value which is a string
+	content has a value which is a string
+CreateParametersConfigurationResults is a reference to a hash where the following keys are defined:
+	report_name has a value which is a string
+	report_ref has a value which is a string
+	parameters_configuration_ref has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+$params is a QIIME.CreateParametersConfigurationParams
+$return is a QIIME.CreateParametersConfigurationResults
+CreateParametersConfigurationParams is a reference to a hash where the following keys are defined:
+	workspace has a value which is a string
+	name has a value which is a string
+	content has a value which is a string
+CreateParametersConfigurationResults is a reference to a hash where the following keys are defined:
+	report_name has a value which is a string
+	report_ref has a value which is a string
+	parameters_configuration_ref has a value which is a string
+
+
+=end text
+
+=item Description
+
+
+
+=back
+
+=cut
+
+ sub create_parameters_configuration
+{
+    my($self, @args) = @_;
+
+# Authentication: required
+
+    if ((my $n = @args) != 1)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function create_parameters_configuration (received $n, expecting 1)");
+    }
+    {
+	my($params) = @args;
+
+	my @_bad_arguments;
+        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        if (@_bad_arguments) {
+	    my $msg = "Invalid arguments passed to create_parameters_configuration:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+								   method_name => 'create_parameters_configuration');
+	}
+    }
+
+    my $result = $self->{client}->call($self->{url}, $self->{headers}, {
+	method => "QIIME.create_parameters_configuration",
+	params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'create_parameters_configuration',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method create_parameters_configuration",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'create_parameters_configuration',
+				       );
+    }
+}
+ 
   
 
 sub version {
@@ -219,16 +318,16 @@ sub version {
             Bio::KBase::Exceptions::JSONRPC->throw(
                 error => $result->error_message,
                 code => $result->content->{code},
-                method_name => 'pick_closed_reference_otus',
+                method_name => 'create_parameters_configuration',
             );
         } else {
             return wantarray ? @{$result->result} : $result->result->[0];
         }
     } else {
         Bio::KBase::Exceptions::HTTP->throw(
-            error => "Error invoking method pick_closed_reference_otus",
+            error => "Error invoking method create_parameters_configuration",
             status_line => $self->{client}->status_line,
-            method_name => 'pick_closed_reference_otus',
+            method_name => 'create_parameters_configuration',
         );
     }
 }
@@ -433,7 +532,7 @@ size has a value which is an int
 
 
 
-=head2 QIIMEParametersFile
+=head2 QIIMEParameters
 
 =over 4
 
@@ -476,7 +575,16 @@ lines has a value which is a reference to a list where each element is a string
 
 =item Description
 
-OTU Table, generally a wrapper of a BIOM file
+OTU Table, generally a wrapper of a BIOM file 
+
+        TODO: add:
+            int n_samples;
+            int n_observations;
+            int count;
+            float density;
+
+            mapping<string,float> sample_detail;
+        @metadata ws summary as Summary
 
 
 =item Definition
@@ -486,11 +594,6 @@ OTU Table, generally a wrapper of a BIOM file
 <pre>
 a reference to a hash where the following keys are defined:
 biom has a value which is a QIIME.BIOMHandle
-n_samples has a value which is an int
-n_observations has a value which is an int
-count has a value which is an int
-density has a value which is a float
-sample_detail has a value which is a reference to a hash where the key is a string and the value is a float
 summary has a value which is a string
 
 </pre>
@@ -501,11 +604,6 @@ summary has a value which is a string
 
 a reference to a hash where the following keys are defined:
 biom has a value which is a QIIME.BIOMHandle
-n_samples has a value which is an int
-n_observations has a value which is an int
-count has a value which is an int
-density has a value which is a float
-sample_detail has a value which is a reference to a hash where the key is a string and the value is a float
 summary has a value which is a string
 
 
@@ -530,7 +628,8 @@ a reference to a hash where the following keys are defined:
 workspace has a value which is a string
 post_split_lib has a value which is a string
 otu_table_name has a value which is a string
-parameters_file has a value which is a string
+parameters_config has a value which is a string
+rev_strand_match has a value which is an int
 
 </pre>
 
@@ -542,7 +641,8 @@ a reference to a hash where the following keys are defined:
 workspace has a value which is a string
 post_split_lib has a value which is a string
 otu_table_name has a value which is a string
-parameters_file has a value which is a string
+parameters_config has a value which is a string
+rev_strand_match has a value which is an int
 
 
 =end text
@@ -577,6 +677,74 @@ a reference to a hash where the following keys are defined:
 otu_table_ref has a value which is a string
 report_name has a value which is a string
 report_ref has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 CreateParametersConfigurationParams
+
+=over 4
+
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+workspace has a value which is a string
+name has a value which is a string
+content has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+workspace has a value which is a string
+name has a value which is a string
+content has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 CreateParametersConfigurationResults
+
+=over 4
+
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+report_name has a value which is a string
+report_ref has a value which is a string
+parameters_configuration_ref has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+report_name has a value which is a string
+report_ref has a value which is a string
+parameters_configuration_ref has a value which is a string
 
 
 =end text

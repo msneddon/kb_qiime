@@ -37,6 +37,20 @@ parameters :
             Output OTU Table
         short-hint : |
             Name for the output OTU Table (BIOM format)
+    rev_strand_match :
+        ui-name : |
+            Allow Reverse Strand Match?
+        short-hint :
+            Requires 2x memory, but necessary if reads are in the wrong orientation relative to the reference
+        description :
+            Adds "pick_otus:enable_rev_strand_match True" to the parameters configuration
+    parameters_config :
+        ui-name : |
+            Parameters Config
+        short-hint :
+            Optionally specify a QIIME parameters configuration
+        description :
+            Additional parameters specified in these options will be appended to the end of the parameters configuration
 
 description : |
     <p>First example of wrapping a QIIME method.</p>

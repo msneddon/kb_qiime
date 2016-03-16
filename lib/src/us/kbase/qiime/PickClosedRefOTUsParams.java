@@ -22,7 +22,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "workspace",
     "post_split_lib",
     "otu_table_name",
-    "parameters_file"
+    "parameters_config",
+    "rev_strand_match"
 })
 public class PickClosedRefOTUsParams {
 
@@ -32,8 +33,10 @@ public class PickClosedRefOTUsParams {
     private String postSplitLib;
     @JsonProperty("otu_table_name")
     private String otuTableName;
-    @JsonProperty("parameters_file")
-    private String parametersFile;
+    @JsonProperty("parameters_config")
+    private String parametersConfig;
+    @JsonProperty("rev_strand_match")
+    private Long revStrandMatch;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("workspace")
@@ -81,18 +84,33 @@ public class PickClosedRefOTUsParams {
         return this;
     }
 
-    @JsonProperty("parameters_file")
-    public String getParametersFile() {
-        return parametersFile;
+    @JsonProperty("parameters_config")
+    public String getParametersConfig() {
+        return parametersConfig;
     }
 
-    @JsonProperty("parameters_file")
-    public void setParametersFile(String parametersFile) {
-        this.parametersFile = parametersFile;
+    @JsonProperty("parameters_config")
+    public void setParametersConfig(String parametersConfig) {
+        this.parametersConfig = parametersConfig;
     }
 
-    public PickClosedRefOTUsParams withParametersFile(String parametersFile) {
-        this.parametersFile = parametersFile;
+    public PickClosedRefOTUsParams withParametersConfig(String parametersConfig) {
+        this.parametersConfig = parametersConfig;
+        return this;
+    }
+
+    @JsonProperty("rev_strand_match")
+    public Long getRevStrandMatch() {
+        return revStrandMatch;
+    }
+
+    @JsonProperty("rev_strand_match")
+    public void setRevStrandMatch(Long revStrandMatch) {
+        this.revStrandMatch = revStrandMatch;
+    }
+
+    public PickClosedRefOTUsParams withRevStrandMatch(Long revStrandMatch) {
+        this.revStrandMatch = revStrandMatch;
         return this;
     }
 
@@ -108,7 +126,7 @@ public class PickClosedRefOTUsParams {
 
     @Override
     public String toString() {
-        return ((((((((((("PickClosedRefOTUsParams"+" [workspace=")+ workspace)+", postSplitLib=")+ postSplitLib)+", otuTableName=")+ otuTableName)+", parametersFile=")+ parametersFile)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((("PickClosedRefOTUsParams"+" [workspace=")+ workspace)+", postSplitLib=")+ postSplitLib)+", otuTableName=")+ otuTableName)+", parametersConfig=")+ parametersConfig)+", revStrandMatch=")+ revStrandMatch)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

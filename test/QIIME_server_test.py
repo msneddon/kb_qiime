@@ -96,7 +96,8 @@ class QIIMETest(unittest.TestCase):
         params = {
             'workspace': ps_lib_info[7],
             'post_split_lib': ps_lib_info[1],
-            'otu_table_name' : 'OTU_Table'
+            'otu_table_name' : 'OTU_Table',
+            'rev_strand_match' : 1
         }
 
         result = self.getQiime().pick_closed_reference_otus(self.getContext(),params)
