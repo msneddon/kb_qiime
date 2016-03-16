@@ -201,10 +201,10 @@ class QIIME:
 
         p.stdout.close()
         p.wait()
+        stopLogStream.set()
         print('command return code: ' + str(p.returncode))
         if p.returncode != 0:
             raise ValueError('Error running pick_closed_reference_otus.py, return code: '+str(p.returncode) + ' - ' + console_messages)
-        stopLogStream.set()
 
 
         # analyze stats for the output biom
