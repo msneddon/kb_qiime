@@ -364,7 +364,7 @@ class QIIME:
                             {
                                 'type':'QIIME.QIIMEParameters',
                                 'data':parameter_config,
-                                'name':params['otu_table_name'],
+                                'name':params['name'],
                                 'meta':{},
                                 'provenance':provenance
                             }]
