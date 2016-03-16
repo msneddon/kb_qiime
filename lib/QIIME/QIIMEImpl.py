@@ -351,7 +351,7 @@ class QIIME:
 
         # split the parameter lines into a list
         param_lines = []
-        for l in content.split('\n'):
+        for l in params['content'].split('\n'):
             param_lines.append(l)
 
         parameter_config = {
